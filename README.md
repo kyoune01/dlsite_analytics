@@ -1,14 +1,23 @@
 # dlsite_analytics
 
-DLsiteの購入履歴作品のジャンルから性癖／地雷を一次回帰で見つけるやつ
+DLsiteの __"男性向け"__ 購入履歴作品のジャンルから性癖／地雷を一次回帰で見つけるやつ
 
-## usage
+## 前提条件
 
-1. `git clone https://github.com/kyoune01/dlsite_analytics.git`
-1. [.devcontainer/docker run](https://docs.docker.com/) or [up vscode-remote](https://code.visualstudio.com/docs/remote/containers-tutorial)
-1. `cp .env.default .env`
-1. run script `python main.py`
-1. create img, json and text
+- Dockerをインストール済（実行環境として必要）
+- 女性向け・海外向けには対応してません、一般向けでも正常に結果が出ない可能性があります
+
+## 使い方
+
+1. リポジトリをクローンする `git clone https://github.com/kyoune01/dlsite_analytics.git`
+1. [.devcontainer/docker run](https://docs.docker.com/) か [up vscode-remote](https://code.visualstudio.com/docs/remote/containers-tutorial) でコンテナを起動、コンテナ内へ移動する
+1. 環境変数ファイルを作成、ファイルへdlsiteのログイン情報を記載する `cp .env.default .env`
+1. 解析スクリプトを実行する `python main.py`
+1. 正常に終了した場合、下記4ファイルが自動生成されます
+    - 回帰グラフ画像
+    - 購入作品JSON
+    - ジャンルのカウントJSON
+    - 性癖／地雷のTOP10
 
 ## warning
 
