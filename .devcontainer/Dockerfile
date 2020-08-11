@@ -22,12 +22,6 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list \
     && apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends google-chrome-stable fonts-noto-cjk locales \
-    && localedef -f UTF-8 -i ja_JP ja_JP.UTF-8 \
+    && apt-get -y install --no-install-recommends google-chrome-stable fonts-noto-cjk libgl1-mesa-dev \
     && mkdir -p /root/.config/matplotlib \
     && echo "font.family : Noto Sans CJK JP" >>  /root/.config/matplotlib/matplotlibrc
-
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
-ENV TZ JST-9

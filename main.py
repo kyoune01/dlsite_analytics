@@ -155,28 +155,39 @@ def main():
         exit()
 
     # scrape works_detail and workcount
+    print("scrape works_detail and workcount")
     work_url_list = [x['work_name']['url'] for x in purchase_history]
     works = []
     for work_url in work_url_list:
+        print(work_url)
         works.append(DlsiteScraper.scrape_work_detail(work_url))
     workcount = DlsiteScraper.fetch_workcount()
+    print("scrape works_detail and workcount success")
 
     # merge purchase_history and works
+    print("merge purchase_history and works")
     purchase_works = merge_works_detail(purchase_history, works,)
     JsonFile.save(purchase_works_json_path, purchase_works)
+    print("merge purchase_history and works success")
 
     # count genre
+    print("count genre")
     genres_count = extract_genre_count(purchase_works)
     count_genre_dict = count_genre(genres_count, workcount)
     JsonFile.save(count_genre_json_path, count_genre_dict)
+    print("count genre success")
 
     # calculate inclination
+    print("calculate inclination")
     result = calculate_inclination(count_genre_dict)
     with open(result_path, 'w', encoding='utf_8') as f:
         f.write(result)
+    print("calculate inclination success")
 
     # drawing graph
+    print("drawing graph")
     sanpu(count_genre_dict, label=True)
+    print("drawing graph success")
 
 
 if __name__ == "__main__":
