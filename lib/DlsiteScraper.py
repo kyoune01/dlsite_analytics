@@ -52,10 +52,11 @@ class DlsiteScraper():
         password_box = driver.find_element_by_id("form_password")
         password_box.send_keys(self.password)
         submit_button = driver.find_element_by_xpath("//*[@type='submit']")
+        print("try login")
         submit_button.submit()
         # Mypage window
         if self.url_top in driver.current_url:
-            print("Mypage window open")
+            print("success login and open Mypage")
             self.driver = driver
             self.is_loging = True
         return self.is_loging
@@ -165,6 +166,7 @@ class DlsiteScraper():
             list: スクレイピング結果 {'genre': [genre1, genre2, ...]}
         """
         result = {'genre': []}
+        tmp = []
 
         if url == '':
             return result
@@ -173,7 +175,11 @@ class DlsiteScraper():
         bs4Obj = bs4.BeautifulSoup(response.text, 'html.parser')
         elements = bs4Obj.select('#work_outline .main_genre a')
         for element in elements:
-            result['genre'].append(element.get_text())
+            tmp.append(element.get_text())
+        elements = bs4Obj.select('.reviewer_most_genre td a')
+        for element in elements:
+            tmp.append(element.get_text().split("（")[0])
+        result['genre'] = list(set(tmp))
 
         return result
 
@@ -219,10 +225,11 @@ class DlsiteScraper():
 
         result = []
         for item in tmp:
-            result.append({
-                'id': item[1],
-                'all_count': item[0],
-                'text': item[2],
-            })
+            if result == [] or result[-1]['id'] != item[1]:
+                result.append({
+                    'id': item[1],
+                    'all_count': item[0],
+                    'text': item[2],
+                })
 
         return result

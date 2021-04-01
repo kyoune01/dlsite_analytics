@@ -167,6 +167,10 @@ def main():
     # merge purchase_history and works
     print("merge purchase_history and works")
     purchase_works = merge_works_detail(purchase_history, works,)
+    total_amount = 0
+    for item in purchase_works:
+        total_amount += int(''.join(item['work_price'][:-1].split(',')))
+    print("total_amount:" + total_amount)
     JsonFile.save(purchase_works_json_path, purchase_works)
     print("merge purchase_history and works success")
 
