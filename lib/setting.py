@@ -16,5 +16,5 @@ load_dotenv(verbose=True)
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-USER = os.environ.get("USER")
+USER = os.environ.get("ADDRESS")
 PASS = os.environ.get("PASS")
